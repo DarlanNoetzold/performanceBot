@@ -7,3 +7,6 @@ There are the following features:
 * cpu usage;
 * memory usage;
 * process running.
+
+---
+⭐️ From [DarlanNoetzold](https://github.com/DarlanNoetzold)
