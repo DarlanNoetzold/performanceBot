@@ -2,7 +2,7 @@ from typing import Final
 import os
 from dotenv import load_dotenv
 from discord import Intents, Client, Message
-from responses import get_response
+from responses import send_large_message, get_response
 
 # STEP 0: LOAD OUR TOKEN FROM SOMEWHERE SAFE
 load_dotenv()
@@ -38,16 +38,15 @@ async def on_ready() -> None:
 
 # STEP 4: HANDLING INCOMING MESSAGES
 @client.event
-async def on_message(message: Message) -> None:
+async def on_message(message):
     if message.author == client.user:
         return
 
-    username: str = str(message.author)
-    user_message: str = message.content
-    channel: str = str(message.channel)
+    user_message = message.content
+    response = get_response(user_message)
 
-    print(f'[{channel}] {username}: "{user_message}"')
-    await send_message(message, user_message)
+    if response:
+        await send_large_message(message.channel, response)
 
 
 # STEP 5: MAIN ENTRY POINT
