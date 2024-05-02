@@ -3,7 +3,6 @@ import psutil
 from discord import Intents, Client, Message
 
 async def send_large_message(destination, text, chunk_size=2000):
-    """Enviar mensagens grandes divididas em múltiplas partes se necessário."""
     for start in range(0, len(text), chunk_size):
         end = min(start + chunk_size, len(text))
         await destination.send(text[start:end])
@@ -23,7 +22,7 @@ def get_running_processes():
             name = proc.info['name']
             processes.append(f"PID: {pid}, Name: {name}")
         except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
-            pass  # Ignorar processos que não podem ser acessados
+            pass
     return "\n".join(processes)
 
 def get_response(user_input: str) -> str:
